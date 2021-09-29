@@ -1,4 +1,4 @@
-# hello_world
+# MIMS22
 this repo consist all the course contents from MIMS UC Berkeley 
 1. INFO206
 2. AML
