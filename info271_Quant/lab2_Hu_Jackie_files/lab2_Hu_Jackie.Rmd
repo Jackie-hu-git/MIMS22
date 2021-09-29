@@ -1,0 +1,118 @@
+---
+title: "lab2_Hu_Jackie"
+author: "Jackiehu"
+date: "10/29/2020"
+output: html_document
+---
+
+```{r}
+library(ggplot2)
+```
+```{r}
+load("lab2_GSS.RData")
+
+```
+
+```{r}
+summary(lab2_GSS$educ)
+```
+
+
+```{r}
+lab2_GSS$educ[lab2_GSS$educ == 99] = NA
+summary(lab2_GSS$educ)
+educ_mean <- mean(lab2_GSS$educ, na.rm = TRUE)
+educ_mean
+educ_sd <- sd(lab2_GSS$educ, na.rm = TRUE)
+educ_sd
+```
+```{r}
+ggplot(lab2_GSS, aes(x= educ)) + geom_histogram(bins = 20) + stat_function(fun = dnorm, args = list(mean = educ_mean, sd = educ_sd)) + labs(x="Highest Year of School Completed", y= "Counts") + ggtitle("Highest Year of School Completed")
+```
+
+```{r}
+qqnorm(lab2_GSS$educ, main = "Highest Year of School Completed")
+qqline(lab2_GSS$educ)
+
+```
+```{r}
+shapiro.test(lab2_GSS$educ)
+```
+
+
+```{r}
+df <- lab2_GSS[, c("income16","educ")]
+df$income_cat =NA
+
+df$income_cat[df$income16 < 22] = "less than $90K"
+df$income_cat[df$income16 >= 22 & df$income16 <= 26] = "greater than equal to $90K"
+
+View(df)
+
+```
+
+
+```{r}
+lab2_GSS$income16[lab2_GSS$income16 == 98] = NA
+lab2_GSS$income16[lab2_GSS$income16 == 27] = NA
+
+# double check the value is correct 
+dim(lab2_GSS)
+sum(table(lab2_GSS$income16))
+sum(is.na((lab2_GSS$income16)))
+```
+
+```{r}
+var(df[df$income_cat == "greater than equal to $90K","educ"], na.rm = TRUE)
+```
+
+```{r}
+var(df[df$income_cat == "less than $90K","educ"],na.rm = TRUE)
+```
+
+
+```{r}
+library(car)
+df$fac_cat = factor(df$income_cat)
+leveneTest(educ ~ fac_cat, data = df)
+
+```
+
+
+```{r}
+install.packages("car")
+```
+
+```{r}
+
+p <- ggplot(data = subset(df,!is.na(fac_cat)), aes(x = educ, fill = fac_cat)) + geom_density(alpha = 0.2)
+p + ggtitle("Density Distributions of Educ by income") + xlab("Highest year of education") + ylab("Prob Density")+ labs(fill = "Income Status")
+
+```
+```{r}
+g <- lab2_GSS[, c("poleff11","poleff13","sex")]
+
+g[g$poleff11 == 0, "poleff11"] <- NA
+g[g$poleff13 == 0, "poleff13"] <- NA
+g[g$poleff11 == 9, "poleff11"] <- NA
+g[g$poleff13 == 9, "poleff13"] <- NA
+
+g$sex[g$sex == 1] = "male"
+g$sex[g$sex == 2] = "female"
+
+summary(g)
+str(g)
+dim(g)
+#View(g)
+
+```
+```{r}
+table(g)
+```
+```{r}
+ggplot(g, aes(poleff11, poleff13)) + geom_jitter(aes(colour= sex), size= 1) + labs(x="Don't have any say abt gov", y = "Have a pretty good understanding of issues") + ggtitle("Political Correlations") + theme(plot.title = element_text(hjust = 0.5 , size= 16))
+```
+```{r}
+ggplot(g, aes(poleff11, poleff13)) + geom_bin2d(bins=10) + labs(x="Don't have any say abt gov", y = "Have a pretty good understanding of issues") + facet_wrap(~sex)
+```
+

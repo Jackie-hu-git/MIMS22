@@ -1,0 +1,203 @@
+---
+title: "R Class Exercise"
+author: "Andrew Chong"
+---
+
+IMPT: For all your assignments, we encourage you to work with each other in debugging your code, but make sure you write all your code yourself. (Do not cut and paste chunks of code from each other.) For the final exam, of course, no discussion is allowed. 
+
+## Exercise 1: Rmd and knitting 
+
+##### Common shortcuts in RStudio 
+Note: Ctrl Option I (Ctrl Alt I for Windows) to start a new code block 
+
+Command Return to run highlighted code. 
+
+
+Other Mac & Windows shortcuts can be found here: https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts
+
+RMarkdown Cheatsheet: https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf
+
+#### 1a) Create a new code block and create a vector with the values 5,2,4
+```{r}
+a <- c(5,2,4)
+
+```
+
+
+#### 1b) Print the mean of the vector. 
+```{r}
+mean(a)
+```
+
+
+#### 1c) Knit your document. 
+
+## Exercise 2: Selecting and outputting values in dataframes 
+
+#### 2) What is the emp_id of the individual with the lowest hours worked?
+
+This emp.data dataset has been modified from the one used in the R intro file. 
+```{r}
+emp.data <- data.frame(
+   emp_id = c(741, 882, 293, 410, 312), 
+   emp_name = c("Ryan","Dan","","Sarah","Gary"),
+   salary = c(600,515.2,611.0,-99,526.5),
+   department = c("HR", "Not Applicable", "Marketing", "Engineering", "Marketing"),
+   hours_worked = c(40, 45, 10, 18, 15), 
+   stringsAsFactors = FALSE
+)
+   
+
+# Think through what each of these steps tells you. What class and storage type is outputted? Try: class, typeof, is.vector to familiarize yourself with what the functions output. 
+emp.data[,"hours_worked"]
+min(emp.data[,"hours_worked"])
+emp.data$hours_worked==min(emp.data[,"hours_worked"]) #returns whether each row met that condition  
+emp.data[emp.data$hours_worked==min(emp.data[,"hours_worked"]),] #using the logical vector is the first argument so it only shows you the third row or the one that is truw 
+
+# IMPT: When asked for any values, please give the specific value, not an entire dataframe or the entire output from an R function. 
+emp.data[emp.data$hours_worked==min(emp.data[,"hours_worked"]),"emp_id"]
+emp.data
+```
+
+## Exercise 3: Working with missing values 
+
+#### 3a) Identify all the instances of missing or problematic values. 
+
+Usually you would also have reference to the codebook, but you should be trained to identify issues not covered by codebooks, or in data you collect yourselves. 
+ 
+```{r}
+emp.data
+
+table(emp.data$emp_name) 
+unique(emp.data$department) #prints out the unique variables
+table(emp.data$department)
+```
+
+#### 3b) Replace all missing values with NA. 
+
+```{r}
+
+# I've copied the dataframe here in case you need to reload it to test out different code. 
+# Dataframe is identical to above. 
+emp.data <- data.frame(
+   emp_id = c(741, 882, 293, 410, 312), 
+   emp_name = c("Ryan","Dan","","Sarah","Gary"),
+   salary = c(600,515.2,611.0,-99,526.5),
+   department = c("HR", "Not Applicable", "Marketing", "Engineering", "Marketing"),
+   hours_worked = c(40, 45, 10, 18, 15), 
+   stringsAsFactors = FALSE
+)
+
+emp.data
+table(emp.data$emp_name)
+emp.data[emp.data$emp_name=="", "emp_name"] = NA #sets it to NA
+emp.data
+table(emp.data$emp_name)
+
+#you have to cross check that you have done it correctly by veryfing
+```
+
+## Exercise 4: Recoding variables 
+
+#### 4) Create a new recoded variable called "Part Time" and "Full Time" 
+```{r}
+head(emp.data)
+table(emp.data$hours_worked)
+str(emp.data)
+
+#ifelse(condition,"first value", "second value")
+
+emp.data$hours_cat = NA #new colum, and set it to NA, try not to replace the values in the original data set
+ 
+emp.data$hours_cat[emp.data$hours_worked<=20] = "Part Time"
+emp.data$hours_cat[emp.data$hours_worked>20] = "Full Time"
+ 
+table(emp.data$hours_worked)
+table(emp.data$hours_cat)
+head(emp.data[, c('hours_worked', 'hours_cat')], 5)
+```
+
+## 5. Group Exercises. In groups of 4, work on the following problems. You should get the following answers. 
+
+#### 5a) Identify and replace all missing values of NA in the dataframe below. 
+
+Write your code below.
+```{r}
+emp.data <- data.frame(
+   emp_id = c(741, 882, 293, 410, 312), 
+   emp_name = c("Ryan","Dan","","Sarah","Gary"),
+   salary = c(600,515.2,611.0,-99,526.5),
+   department = c("HR", "Not Applicable", "Marketing", "Engineering", "Marketing"),
+   hours_worked = c(40, 45, 10, 18, 15), 
+   stringsAsFactors = FALSE
+)
+
+emp.data
+table(emp.data$emp_name)
+emp.data[emp.data$emp_name=="", "emp_name"] = NA
+emp.data
+
+emp.data[emp.data$salary==-99, "salary"] = NA
+emp.data
+
+```
+
+#### 5b) Calculate the mean of hours_worked for employees with positive salaries.  
+
+```{r}
+mean(emp.data$salary, na.rm = TRUE)
+
+```
+
+#### 5c) Try creating the following variables adapting our "Part Time", "Full Time" examples. 
+
+* A string variable with two categories - "Part Time", and "Full Time" 
+* A numeric variable with 0 for Part-Time, 1 for Full-Time.
+* A factor variable with two categories, one for part-time, one for full-time. 
+
+Try out the following commands (use ? to read the documentation)
+
+* factor()
+* as.numeric(), as.character()
+* table(), head(), class(), typeof()
+
+Make sure you use table(), head(), class(), typeof() frequently (as in the above example) to check you've done the conversions correctly. There can be multiple ways to get the desired recode. 
+```{r}
+emp.data$hour_cat = NA
+emp.data
+
+emp.data$hour_cat[emp.data$hours_worked>20] = "Part-Time"
+emp.data
+
+emp.data$hour_cat[emp.data$hours_worked<20] = "Full-Time"
+emp.data
+
+emp.data$hour_cat_num = NA
+emp.data$hour_cat_num[emp.data$hour_cat == "Part-Time"] = 0
+emp.data
+typeof(emp.data$hour_cat_num)
+emp.data$hour_cat_num[emp.data$hour_cat == "Full-Time"] = 1
+emp.data
+
+emp.data$hours_cat_func = NA
+emp.data
+?factor()
+
+emp.data$hours_cat_func = factor(emp.data$hour_cat_num, levels = (0:1), labels = c("part-tine", "full-time"))
+emp.data$hours_cat_func = factor(emp.data$hour_cat_num, levels = c(0,1), labels = c("part-tine", "full-time"))
+emp.data$hours_cat_func = factor(emp.data$hour_cat)
+emp.data
+
+emp.data$hour_cat
+
+```
+
+#### 5d) Create a new dataframe that contains only complete data using the na.omit function. 
+
+```{r}
+?na.omit
+
+emp.data.complete = na.omit(emp.data)
+emp.data.complete
+```
+

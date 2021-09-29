@@ -1,0 +1,99 @@
+/*
+  Project Name: Create a Responsive Web Design Template
+  Author: Harry Atkins
+  Published on: http://www.onextrapixel.com/
+ */
+
+::-moz-selection 	{ background-color: #91D8f7; color: #fff; }
+::selection 		{ background-color: #91D8f7; color: #fff; }
+
+a			{ outline: 0; color: #0051A3; text-decoration: none; }
+a:hover 		{ text-decoration: none; color: #151B54 }
+a:active 		{ outline: none; position: relative; top: 2px; }
+
+.clearfix 		{ clear: both; }
+	
+body { 
+    font-family: 'Lucida Grande'; font-size: 12px;
+    background: #C8C8C8 url(../images/cloth_alike.png) repeat bottom left-;
+    /*background: #E0E0E0 ; color: #222; font-family: 'Georgia'; font-size: 14px; */
+    -webkit-transition-property: font-size;
+    -moz-transition-property: font-size;
+    transition-property: font-size;
+    -webkit-transition-duration: 0.5s, 0.5s;
+    -moz-transition-duration: 0.5s, 0.5s;
+    transition-duration: 0.5s, 0.5s; 
+    -webkit-transition-timing function: linear, ease-in;
+    -moz-transition-timing function: linear, ease-in; 
+    transition-timing function: linear, ease-in; 
+}
+
+#wrapper { 
+    margin: 10px auto; 
+    max-width: 800px; 
+    width: 100%; 
+    background: #D8D8D8 
+    padding: 0px 0; 
+}
+
+header { 
+    padding: 0px; 
+}
+
+sup {font-size:xx-small; vertical-align:super;}
+sub {font-size:xx-small; vertical-align:sub;}
+
+nav 		{ background: #222; padding: 0; margin: 10px 0;}
+nav a 		{ color: #F9F9F9; display: block; float: left; padding: 10px; }
+nav a:visited 	{ color: #f9f9f9; }
+nav a:hover	{ text-decoration: none; background: #27B3CF; }
+nav a:active	{ position: relative; top: 0; }
+
+.left-col { 
+    width: 35%; 
+    float: right; 
+    text-align: left
+}
+
+.sidebar { 
+    width: 65%; 
+    float: left; 
+    margin-bottom: 10px; 
+    text-align: left;
+    -webkit-transition-property: width;
+    -moz-transition-property: width;
+    transition-property: width;
+    -webkit-transition-duration: 0.5s, 0.5s;
+    -moz-transition-duration: 0.5s, 0.5s;
+    transition-duration: 0.5s, 0.5s; 
+    -webkit-transition-timing function: linear, ease-in;
+    -moz-transition-timing function: linear, ease-in; 
+    transition-timing function: linear, ease-in;
+}
+
+#featured 	{ padding: 0px; }
+#latest		{ padding: 0px; }
+#about 		{ padding: 20px; ; text-align: justify}
+ul              { list-style: none; }
+ul li 		{ margin: 0 25px; }
+ol li 		{ margin: 0 25px; }
+footer 		{ padding: 20px; }
+#pre		{ overflow: scroll; font-size: 0px; }
+
+#block {
+    border: 0px solid gray; 
+    box-shadow: 0px 0px 0px gray;
+    padding: 8px
+}
+
+html{
+  height:100%;
+}
+body{
+  height:100%;
+}
+section {
+  padding: 0 0 0 0;
+  height: 100%;
+  min-height: 100%;
+}

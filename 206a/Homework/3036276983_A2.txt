@@ -1,0 +1,39 @@
+START| TAKE_A_LOOK, DELETE, WHO| Wake up!!!!! A loud sound woke me up from my sleep. I take a look at the alarm, it's almost time for my info206a class."Ughhh, what's the point..." I murmured, "What's the meaning of this, what's the meaning of life. Sometimes this whole world just feels like a simulation that we all trapped in!" I sat in front of my computer screen, a strange email poped out ---- Inivitation from Zima blue. Do you a) take a look or b) I'm gonna delete it. c) Who is Zima blue?
+
+TAKE_A_LOOK| WHO, GOING| I opened the email: "Greetings, You are invited." Huh, seems like an invitation of some sort. I keep reading: "The search for meaning, in your work, your life, your relationships, your very existence, is a very powerful concept, and one I’m sure most people question at some point in their lives. Therefore, come by and I hope the truth of the universe will unwind for you.  - Zima blue " a) "Who is Zima blue?" or b) WOOOWWW, I need to go now!
+
+DELETE| WHO, GOING| But... HOLD ON! How did he know my email! Who is he! What does he want! You are going to a) Search about Zima blue. b) Going to find out yourself!
+
+WHO| GOING| I typed in this strange name - Zima blue, the following text pops up: Zima, a world renowned artist famous for his works containing a precise shade of blue. His search for deeper meaning led him to look deep into the cosmos, which in turn, led him to painting enormous murals of various cosmic formations, such as planets and nebulas. One of his most recent murals was unveiled with a tiny blue square painted in the center. That mural was the precursor for several decades worth of murals that continued to evolve, with the blue shape becoming more dominant. This is how the artist earned the name "Zima Blue". Zima is in search of his true purpose and has been pushing the boundaries of science and art to find it. You decide that a) I'm going to meet him now! 
+
+GOING| SAY_HI, GO_BACK, EMAIL| I jump up, decided to skip my class. Well, I'm pretty sure Prof Hany will understand! It's the search of meaning of the universe, Python can wait today! I arrrived at the location said on the invitation, and I saw him, Zima Blue. Do you a) Say hi or b) I change my mind, I should go back to class! c) First thing first, I need to email my GSI for a late homework submission. 
+
+GO_BACK| SAY_HI| What if, this is a huge mistake! I don't even know what he wants from me, what if this is a trap! But, what if, what if he really has the answer... You decide to a) at least say hi, and see what does he wants!
+
+EMAIL| SAY_HI| I quickly send an email to my GSI, hoping I'm not making a stupid mistake by using my late submission this early. I walk to Zima, and a) Say hi.
+
+SAY_HI| WHO_R_YOU, WHY_ME| I shake his hand. He is tall, with almost a machinary built body. I've read that he has underwent radical biological procedures which enabled him to tolerate extreme environments without the burden of a protective suit.His eyes could see in any known spectrum, and he no longer breathed oxygen. His skin was replaced with a pressurized polymer. Do you ask him a) Who are you? Really? or b) Why me? 
+
+WHY_ME| STORY, WHAT_HAPPENED, THE_ROBOT| "How did you find me? And why me?" I ask "Does it really matter?" He smiled, and says "But I asked you here for a reason, to tell you my story, and maybe, you can find your calling through my experience." You say a) "Sounds good, I guess a story does no harm." or b) "Fine, so you were saying about the swimming pool..." or c) "Fine, so you were saying... the robot becomes more aware and human-like?"
+
+WHO_R_YOU| STORY| Zima laughed, and say: "I'm glad you asked, pace yourself, let me tell you my story. a) "Sure, I'm all ears!"
+
+STORY| SWIMMING_POOL, THE_NAME| So he continued... "Long ago, there was a talented young woman with a keen interest in practical robotics. She created dozens of robots to do odd jobs around her house, but she was especially fond of the one she created to clean her swimming pool." You a) Swimming pool? b) "OKay... Does this has anything to do with your weird name?"
+
+SWIMMING_POOL| WHAT_HAPPENED, WHY_ME| "Yes, the swimming pool." He kept talking. "The little machine toiled endlessly, scrubbing the ceramic sides of the pool. But the young woman wasn’t satisfied with the job it did. So she gave it a full-color vision system and a brain large enough to process the visual data into a model of its surroundings. She gave it the ability to make its own decisions, to design different strategies for cleaning the pool. She continued to use the machine as a test-bed for new hardware and software." "Sounds like AI" I said. "Yes, much alike". You a) "So? What happened next?" b) "What does this has anything to do with me then? "
+
+WHAT_HAPPENED| THE_NAME, THE_ROBOT, WHY_ME| "By stages, the little robot became more aware. Eventually, the woman died. The little machine was passed from one owner to the next. They added things, made modifications here and there and with every iteration, it became more ..." "Alive?" "Yes, and more .... human like." You want to ask him about a) What does Zima Blue really means? b) Then what happened to the robot!? c) What does this has anything to do with me? 
+
+THE_NAME| SWIMMING_POOL| "So, what about the name Zima Blue, is the story somehow related to this?" "I'm glad you ask." He nodded. "The colour of the blue tiles used in the swimming pool was called Zima Blue by the tile manufacturers. And that is the first thing the little robot ever saw. " a) "Okay, go back to the swimming pool, what happened then?" 
+
+THE_ROBOT| WHAT, MEANING| "Through times, people has believed that I modified my body, to explore the universe, but the truth is, I am that robot machine." a) "Whattttt???" b) "I guess, You do look different.. so?" 
+
+MEANING| ME, CALLING| "At the first couple years, my search for truth was outward, into the cosmos and he soon realized thatthe universe was already speaking its own truth. the cosmos was way older and had its own purpose of existence. So my focus turned inward, I began looking for my origins and located the swimming pool which I first cleaned. " "So, the swimming pool..." "Correct, years after my explorations of the universe, I think, my search for truth has finished at last." a) "Tell me more!" b) "What about me? What's my calling! "
+
+WHAT| ME, MEANING| "I, once was this crude little machine with barely enough intelligence to steer itself. But it was my world. Cleaning was all I knew, all I needed to know." "My creator leaves just enough for me to appreciate my surroundings to extract some simple pleasure from the execution of a task well done." a) "What are you trying to say?" b) "So how did you come to this realization?
+
+ME| CALLING, Ending| "Here's the thing. The purpose of our existence is merely to be a harmonious part of our ecosystem which in turn is a part of the universe. The quest for wealth and power would never complete that quest for happiness. For me, the blue in my murals was my true calling." a) "What about me? What is my calling?" c) "I think I understand now..."
+
+CALLING| Ending| "Humans seek the purpose of their existence, and everything you set out to conquer in this search is outward. However, you end up looking for the wrong things – riches, power, status, etc. If we started looking inward, we would begin to realize that happiness is extracted from the simple things we do and feel. " a) "I think I understand now..."
+
+Ending|| "I see, your purpose once was to clean the pool. You simply goes back to yout beginning and embraces your truth. The truth of the Universe, is the beauty in simplicity." I said. "In other words, as all humanity and the techonology, we are aiming at some kind of "better" and "more developed"; unconsciously putting ourselves in a deeper swamp..." I think I need to go back and do the one thing I need to do now, go take my Info206A class! "Thank you Zima! For everything."

@@ -1,0 +1,158 @@
+---
+title: "final_hu_jackie"
+author: "Jackiehu"
+date: "12/11/2020"
+output: html_document
+---
+
+```{r}
+setwd("C:/Users/12062/Documents/final_hu_jackie_271")
+dat = read.csv("Dating.csv", header = TRUE)
+```
+
+```{r}
+#checking variable type 
+class(dat$life_quality)
+```
+
+```{r}
+#creating categories
+dat$good_life_quality = NA
+dat$married = NA
+dat$income_50K = NA
+```
+
+```{r}
+#reverse code the variables 
+dat$good_life_quality[dat$life_quality == 1] = 5
+dat$good_life_quality[dat$life_quality == 2] = 4
+dat$good_life_quality[dat$life_quality == 3] = 3
+dat$good_life_quality[dat$life_quality == 4] = 2
+dat$good_life_quality[dat$life_quality == 5] = 1
+```
+
+
+```{r}
+#setting up NA 
+dat$good_life_quality[dat$life_quality == 'Refused'] = NA 
+dat$good_life_quality[dat$life_quality == "Don't know"] = NA
+```
+
+```{r}
+#checking the summary 
+table(dat$good_life_quality, dat$life_quality)
+summary(dat$good_life_quality)
+```
+
+```{r}
+#encode the married categories 
+dat$married[dat$marital_status == "Married"] = 1
+dat$married[dat$marital_status == "Never been married"] = 0
+dat$married[dat$marital_status == "Separated"] = 0
+dat$married[dat$marital_status == "Widowed"] = 0
+dat$married[dat$marital_status == "Living with partner"] = 0
+dat$married[dat$marital_status == "Divorced"] = 
+dat$married[dat$marital_status == "Don’t know"] = 0
+dat$married[dat$marital_status == "Refused"] = NA
+```
+
+```{r}
+#encode the income categories
+dat$income_50K[dat$income <= 5] = 0
+dat$income_50K[dat$income >= 6] = 1
+dat$income_50K[dat$income == 98] = NA
+dat$income_50K[dat$income == 99] = NA
+```
+
+```{r}
+#encode the age categories
+dat$age[dat$age == 98] = NA
+dat$age[dat$age == 99] = NA
+```
+
+```{r}
+#creating a dataframe contains 4 variables 
+Dating_lim <- dat[,c("good_life_quality", "married","income_50K","age")]
+```
+
+
+```{r}
+summary(Dating_lim)
+dim(Dating_lim)
+```
+
+
+```{r}
+library(car)
+```
+
+```{r}
+#only grabbing the complete cases 
+lim_rows = complete.cases(Dating_lim$good_life_quality, Dating_lim$married, Dating_lim$income_50K, Dating_lim$age)
+Dating_lim = Dating_lim[lim_rows,]
+```
+
+
+```{r}
+#OLS model that predicts good_life_quality as a function of married 
+model1 = lm(good_life_quality ~ married, data = Dating_lim)
+summary(model1)
+```
+
+```{r}
+#OLS model that predicts good_life_quality as a function of married and income.
+model2 = lm(good_life_quality ~ married + income_50K, data = Dating_lim)
+summary(model2)
+```
+```{r}
+#OLS model that predicts good_life_quality as a function of married,income and ages.
+model3 = lm(good_life_quality ~ married + income_50K + age, data = Dating_lim)
+summary(model3)
+```
+
+```{r}
+#compute F-statistics between model 1 and model 2
+anova(model1, model2)
+```
+
+
+```{r}
+#compute F-statistics between model 2 and model 3
+anova(model2, model3)
+```
+
+```{r}
+AIC(model1)
+AIC(model2)
+AIC(model3)
+```
+
+```{r}
+plot(model3)
+```
+```{r}
+ncvTest(model3)
+spreadLevelPlot(model3)
+
+```
+
+```{r}
+#checking the distribution of the data real quick
+num1 <- as.numeric(Dating_lim$good_life_quality)
+hist(num1)
+num2 <- num1^ 0.8920433
+hist(num2)
+```
+
+
+```{r}
+#OLS model that applies the power transformation.
+model4 = lm((as.numeric(good_life_quality)^0.8920433) ~ married + income_50K + age, data = Dating_lim)
+summary(model4)
+```
+
+```{r}
+ncvTest(model4)
+spreadLevelPlot(model4)
+```
+

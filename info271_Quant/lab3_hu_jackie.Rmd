@@ -1,0 +1,163 @@
+---
+title: "lab3_hu_jackie"
+author: "Jackiehu"
+date: "11/22/2020"
+output: html_document
+---
+
+```{r}
+library(car)
+library(lsr)
+library(gmodels)
+```
+
+```{r}
+load("lab3_GSS.Rdata")
+```
+
+```{r}
+#creating new factors 
+df <- lab3_GSS[, c("degree", "gunlaw")]
+
+df$degree_factor = NA
+df$gun_factor = NA
+```
+
+```{r}
+#recode the variables
+df$degree_factor[df$degree == 0] = "HIGH SCHOOL OR LESS"
+df$degree_factor[df$degree == 1] = "HIGH SCHOOL OR LESS"
+df$degree_factor[df$degree == 1] = "HIGH SCHOOL OR LESS"
+df$degree_factor[df$degree == 2] = "COLLEGE"
+df$degree_factor[df$degree == 3] = "COLLEGE"
+df$degree_factor[df$degree == 4] = "GRADUATE"
+df$degree_factor[df$degree == 8 & df$degree == 9] = NA
+```
+
+```{r}
+df$gun_factor[df$gunlaw == 1] = "Favor"
+df$gun_factor[df$gunlaw == 2] = "Oppose"
+df$gun_factor[df$gunlaw == 8] = "Don’t know"
+
+df$gun_factor[df$gunlaw == 9 & df$gunlaw == 0] = NA
+```
+
+
+```{r}
+#combine 2 categories into a table
+table(df$degree_factor, df$gun_factor)
+```
+
+```{r}
+#run the chi-square test and double check the expected value
+test <- chisq.test(table(df$degree_factor, df$gun_factor))
+test
+test$statistic
+test$p.value
+test$expected
+```
+
+```{r}
+summary((table(df$degree_factor, df$gun_factor)))
+```
+
+```{r}
+#run the fisher's exact test since we have 2 values that are less than 5
+test_fisher <- fisher.test((table(df$degree_factor, df$gun_factor)))
+test_fisher
+```
+
+```{r}
+#creates a crosstable to explore SR
+CrossTable(df$degree_factor, df$gun_factor,fisher = TRUE, chisq = TRUE, expected = TRUE, sresid = TRUE, format = "SPSS" ) 
+```
+```{r}
+#run the approriate effect size test using Cramers'v 
+cramersV(df$degree_factor, df$gun_factor)
+```
+
+```{r}
+#Task 2: 
+
+df2 <- lab3_GSS[, c("educ", "childs")]
+df2$educ[df2$educ == 99] = NA
+df2$educ[df2$educ == 98] = NA
+df2$childs[df2$childs == 9] = NA
+
+```
+
+```{r}
+#run the correlation test 
+cor.test(df2$educ, df2$childs)
+```
+
+```{r}
+#task3:
+df3 <- lab3_GSS[, c("expdesgn", "wwwhr")]
+df3$exp_factor = NA
+
+df3$exp_factor[df3$expdesgn == 1] = 'No Control'
+df3$exp_factor[df3$expdesgn == 2] = "Control"
+df3$exp_factor[df3$expdesgn == 8 & df3$expdesgn == 9 & df3$expdesgn == 0] = NA
+
+df3$wwwhr[df3$wwwhr == -1] = NA
+df3$wwwhr[df3$wwwhr == 998] = NA 
+df3$wwwhr[df3$wwwhr == 999] = NA
+
+```
+
+```{r}
+#double check the normality with graph
+qqnorm(df3$wwwhr)
+```
+```{r}
+#check normality useing shapiro-wilk test
+shapiro.test(df3$wwwhr)
+```
+
+
+```{r}
+#using leveneTest to check the variance 
+leveneTest(df3$wwwhr ~ df3$exp_factor, df3, center = mean)
+```
+```{r}
+#checking the factor levels
+df3$exp_factor <- factor(df3$exp_factor)
+levels(df3$exp_factor)
+```
+
+```{r}
+#run the 1 tailed t-test, specified a greater null hypothesis based on the factors order
+ind.t.test <- t.test(df3$wwwhr ~ df3$exp_factor, alternative = "greater", data = df3)
+ind.t.test
+```
+```{r}
+#calculating the effect size
+t <- ind.t.test$statistic[[1]]
+df <- ind.t.test$parameter[[1]]
+```
+
+```{r}
+r <- sqrt(t ^ 2/(t^2 + df))
+```
+
+```{r}
+round(r, 3)
+```
+
+```{r}
+#run the cohens'D effect size test 
+cohensD(df3$wwwhr ~ df3$exp_factor)
+```
+
+```{r}
+#plotting density graph
+
+library(ggplot2)
+```
+
+```{r}
+#overlapping a lot! 
+ggplot(na.omit(df3[,c("wwwhr", 'exp_factor')]), aes(x = wwwhr, fill= exp_factor)) + geom_density(alpha= .5)
+```
+
